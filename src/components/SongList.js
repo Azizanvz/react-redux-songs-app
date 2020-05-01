@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { selectSong } from '../actions';
+
 class SongList extends Component {
-    // whatever mapStateToProps function returns falls into props, in this case songs
+    // whatever mapStateToProps function returns(in this case songs) is merged as props
     renderList(){
         return this.props.songs.map((song) => {
             return (
@@ -25,8 +27,11 @@ class SongList extends Component {
          }
 }
 
-const mapStateToProps = state => { //as it is obvious from the name takes the global state and return to props 
+const mapStateToProps = state => { //the store state
     return {songs: state.songs}
 }
 
-export default connect(mapStateToProps)(SongList);
+// connect() is what connect a React component to a Redux store
+// first parameter(mapStateToProps function) takes the store state as a parameter and returns an object that is merged as props to the connected component
+// second parameter {selectSong} is an object with the action creator selectSong. internally, React-Redux binds the action creators to the dispatch of the store
+export default connect(mapStateToProps, {selectSong})(SongList); // {selectSong} - es6 shortut syntax for {selectSong: selectSong}
