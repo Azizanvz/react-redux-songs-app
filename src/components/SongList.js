@@ -10,7 +10,8 @@ class SongList extends Component {
             return (
                 <div className="item" key={song.title}>
                     <div className="right floated content">
-                        <button className="ui button primary">
+                        <button className="ui button primary"
+                            onClick={()=> this.props.selectSong(song)}>
                             Select
                         </button>
                     </div>
@@ -27,11 +28,11 @@ class SongList extends Component {
          }
 }
 
-const mapStateToProps = state => { //the store state
+const mapStateToProps = state => { //the store state, called whenever the store state changes
     return {songs: state.songs}
 }
 
-// connect() is what connect a React component to a Redux store
+// connect() is what connects a React component to a Redux store
 // first parameter(mapStateToProps function) takes the store state as a parameter and returns an object that is merged as props to the connected component
 // second parameter {selectSong} is an object with the action creator selectSong. internally, React-Redux binds the action creators to the dispatch of the store
 export default connect(mapStateToProps, {selectSong})(SongList); // {selectSong} - es6 shortut syntax for {selectSong: selectSong}
